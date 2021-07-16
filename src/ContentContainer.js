@@ -1,4 +1,4 @@
-import { useJsApiLoader } from "@react-google-maps/api";
+import { StreetViewService, useJsApiLoader } from "@react-google-maps/api";
 import React, { useState } from "react";
 import Forms04 from "./Forms04";
 import Gmap from "./Gmap";
@@ -9,11 +9,14 @@ export default function ContentContainer() {
   const [originName, setOriginName] = useState("");
   const [destinationName, setDestinationName] = useState("");
   const [center, setCenter] = useState({ lat: 30, lng: 31 }); //cairo
-  const [originPosition, setOriginPosition] = useState();
-  const [destinationPosition, setDestinationPosition] = useState();
+  const [originCoords, setOriginCoords] = useState();
+  const [destinationCoords, setDestinationCoords] = useState();
   const [tripPrice, setTripPrice] = useState(0);
   const [tripDuration, setTripDuration] = useState({ hours: 0, minutes: 0 });
   const [tripDistance, setTripDistance] = useState(0);
+  const [distanceMatrixRequest, setRequest] = useState({});
+  const [geocoder, setGeocoder] = useState(null);
+  const [service, setService] = useState(null);
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: "AIzaSyCeDbzkBUMghS9nQtS0fVySysUxKNDkYyo",
@@ -22,12 +25,16 @@ export default function ContentContainer() {
   const [map, setMap] = React.useState(null);
   const onLoad = React.useCallback(function callback(map) {
     setMap(map);
+    var geocoder = new window.google.maps.Geocoder();
+    var service = new window.google.maps.DistanceMatrixService();
+    setGeocoder(geocoder);
+    setService(service);
   }, []);
   const onUnmount = React.useCallback(function callback(map) {
     setMap(null);
   }, []);
 
-  async function getTripData(service, originName, destinationName) {
+  async function getTripData() {
     var localResponse;
     const request = {
       origins: [originName],
@@ -47,18 +54,14 @@ export default function ContentContainer() {
 
   const handleSubmit = async e => {
     e.preventDefault();
-    var geocoder = new window.google.maps.Geocoder();
-    var service = new window.google.maps.DistanceMatrixService();
-    const response = await getTripData(service, originName, destinationName);
-    const distanceInMeters = response.rows[0].elements[0].distance;
-    const durationInSeconds = response.rows[0].elements[0].duration;
-    const _tripPrice = calculateFare(
-      distanceInMeters.value,
-      durationInSeconds.value
-    );
 
-    setTripDistance(distanceInMeters.value / 1000);
-    const { hours, minutes } = calculateTime(durationInSeconds.value);
+    const response = await getTripData();
+    const distanceInMeters = response.rows[0].elements[0].distance.value;
+    const durationInSeconds = response.rows[0].elements[0].duration.value;
+    const _tripPrice = calculateFare(distanceInMeters, durationInSeconds);
+
+    setTripDistance(distanceInMeters / 1000);
+    const { hours, minutes } = calculateTime(durationInSeconds);
     setTripDuration({ hours, minutes });
     setTripPrice(_tripPrice);
     const originFullName = response.originAddresses[0];
@@ -69,13 +72,13 @@ export default function ContentContainer() {
       geocoder.geocode({ address: originFullName }),
       geocoder.geocode({ address: destinationFullName }),
     ]).then(values => {
-      const originLocation = values[0].results[0].geometry.location;
-      const destinationLocation = values[1].results[0].geometry.location;
+      const _originCoords = values[0].results[0].geometry.location;
+      const _destinationCoords = values[1].results[0].geometry.location;
 
-      setOriginPosition(originLocation);
-      setDestinationPosition(destinationLocation);
-      bounds.extend(originLocation);
-      bounds.extend(destinationLocation);
+      setOriginCoords(_originCoords);
+      setDestinationCoords(_destinationCoords);
+      bounds.extend(_originCoords);
+      bounds.extend(_destinationCoords);
       map.fitBounds(bounds);
 
       map.setZoom(map.getZoom() - 1);
@@ -99,8 +102,9 @@ export default function ContentContainer() {
               center={center}
               onLoad={onLoad}
               onUnmount={onUnmount}
-              originPosition={originPosition}
-              destinationPosition={destinationPosition}
+              originPosition={originCoords}
+              destinationPosition={destinationCoords}
+              distanceMatrixRequest={distanceMatrixRequest}
             />
           )}
           <TripInfo
