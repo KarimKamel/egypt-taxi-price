@@ -1,0 +1,12 @@
+{
+    "title":"Taxi fare prices in Egypt?",
+    "subtitle":"Enter your departure and arrival locations below and get the exact amount you should be paying.",
+    "from":"from",
+    "origin":"origin",
+    "to":"to",
+    "destination":"destination",
+    "departure time":"departure time (optional)",
+    "asterisk message":"*used to calculate time in traffic. Defaults to current time.",
+    "submit":"submit"
+
+}

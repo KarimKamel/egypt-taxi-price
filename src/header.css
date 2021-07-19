@@ -1,0 +1,25 @@
+header {
+  background-color: black;
+}
+header .navbar-nav a.nav-link {
+  color: #9c4b4b;
+}
+header .navbar-nav a.nav-link:hover {
+  color: #f17272;
+  font-weight: 700;
+}
+header .navbar-nav .active a.nav-link {
+  color: #f17272;
+  font-weight: 700;
+}
+
+nav .logo {
+  font-family: "Tourney", cursive;
+  color: #9c4b4b;
+  white-space: nowrap;
+  font-size: 1.5rem;
+}
+
+.language-switch {
+  color: #f17272;
+}

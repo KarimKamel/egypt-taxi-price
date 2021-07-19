@@ -1,64 +1,40 @@
-import React, { useState, useEffect, Fragment } from "react";
-import { GoogleMap, useJsApiLoader, Marker } from "@react-google-maps/api";
+import React from "react";
+import About from "./About";
+import Team from "./Team";
+import Contact from "./Contact";
 import Header from "./Header";
 import ContentContainer from "./ContentContainer";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-const containerStyle = {
-  width: "400px",
-  height: "400px",
-};
+// const containerStyle = {
+//   width: "400px",
+//   height: "400px",
+// };
 
-const formRowContainer = {
-  display: "flex",
-};
+// const formRowContainer = {
+//   display: "flex",
+// };
 
 function MyComponent() {
-  const [originName, setOriginName] = useState("");
-  const [destinationName, setDestinationName] = useState("");
-  const [center, setCenter] = useState({ lat: 30, lng: 31 });
-  const [originPosition, setOriginPosition] = useState();
-  const [destinationPosition, setDestinationPosition] = useState();
-  const [tripPrice, setTripPrice] = useState(0);
-  const [tripDuration, setTripDuration] = useState({ hours: 0, minutes: 0 });
-  const [tripDistance, setTripDistance] = useState(0);
-  const { isLoaded } = useJsApiLoader({
-    id: "google-map-script",
-    googleMapsApiKey: "AIzaSyCeDbzkBUMghS9nQtS0fVySysUxKNDkYyo",
-  });
-
-  const [map, setMap] = React.useState(null);
-
-  const onLoad = React.useCallback(function callback(map) {
-    setMap(map);
-  }, []);
-
-  const onUnmount = React.useCallback(function callback(map) {
-    setMap(null);
-  }, []);
-  function renderMap() {
-    return (
-      <GoogleMap
-        mapContainerStyle={containerStyle}
-        center={center}
-        zoom={13}
-        onLoad={onLoad}
-        onUnmount={onUnmount}>
-        {/* Child components, such as markers, info windows, etc. */}
-        <>
-          {originPosition && <Marker position={originPosition} />}
-          {destinationPosition && <Marker position={destinationPosition} />}
-        </>
-      </GoogleMap>
-    );
-  }
-
   return (
-    <Fragment>
+    <Router>
       <Header />
-      <ContentContainer map={map} />
 
-      {/* {isLoaded ? renderMap() : null} */}
-    </Fragment>
+      <Switch>
+        <Route path="/about">
+          <About />
+        </Route>
+        <Route path="/contact">
+          <Contact />
+        </Route>
+        <Route path="/team">
+          <Team />
+        </Route>
+        <Route path="/">
+          <ContentContainer />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 

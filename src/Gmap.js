@@ -1,10 +1,6 @@
 import React, { useEffect } from "react";
 
-import {
-  GoogleMap,
-  Marker,
-  DistanceMatrixService,
-} from "@react-google-maps/api";
+import { GoogleMap, Marker } from "@react-google-maps/api";
 
 const containerStyle = {
   width: "400px",
@@ -19,6 +15,8 @@ export default function Gmap(props) {
     originPosition,
     destinationPosition,
     distanceMatrixRequest,
+    onOriginDragEnd,
+    onDestinationDragEnd,
   } = props;
 
   useEffect(() => {
@@ -40,25 +38,23 @@ export default function Gmap(props) {
                 <Marker
                   label={"start"}
                   draggable={true}
-                  onDragEnd={e => console.log(e.latLng.lat())}
+                  onDragEnd={onOriginDragEnd}
                   position={originPosition}
                 />
               )}
               {destinationPosition && (
-                <Marker label={"end"} position={destinationPosition} />
+                <Marker
+                  label={"end"}
+                  position={destinationPosition}
+                  draggable={true}
+                  onDragEnd={onDestinationDragEnd}
+                />
               )}
             </>
-            {/* {distanceMatrixRequest &&
-              Object.keys(distanceMatrixRequest).length !== 0 && (
-                <DistanceMatrixService
-                  options={distanceMatrixRequest}
-                  // onLoad={r => console.log("onload", r)}
-                  // callback={r => console.log("oncallback", r)}
-                />
-              )} */}
           </GoogleMap>
         </div>
       </div>
+      {props.children}
     </div>
   );
 }

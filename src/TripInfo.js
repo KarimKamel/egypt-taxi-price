@@ -4,7 +4,7 @@ import "./TripInfo.css";
 export default function TripInfo(props) {
   const { tripDuration, tripDistance, tripPrice } = props;
   return (
-    <div class="col-12 col-md-8 col-lg-6 col-xl-6 text-left">
+    <div class="col-12 d-flex justify-content-center">
       {tripDistance !== 0 && (
         <div className="trip-info-container">
           <h3 className="mt-3">
