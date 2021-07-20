@@ -6,20 +6,10 @@ import Header from "./Header";
 import ContentContainer from "./ContentContainer";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
-// const containerStyle = {
-//   width: "400px",
-//   height: "400px",
-// };
-
-// const formRowContainer = {
-//   display: "flex",
-// };
-
-function MyComponent() {
+function App() {
   return (
     <Router>
       <Header />
-
       <Switch>
         <Route path="/about">
           <About />
@@ -38,4 +28,4 @@ function MyComponent() {
   );
 }
 
-export default React.memo(MyComponent);
+export default React.memo(App);

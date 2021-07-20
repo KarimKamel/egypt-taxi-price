@@ -1,11 +1,12 @@
-import { useJsApiLoader, useLoadScript } from "@react-google-maps/api";
+import { useJsApiLoader } from "@react-google-maps/api";
 import React, { useState, useEffect } from "react";
-import Forms04 from "./Forms04";
+import Form from "./Form";
 import Gmap from "./Gmap";
 import TripInfo from "./TripInfo";
 import { useTranslation } from "react-i18next";
 
 import { calculateFare, calculateTime } from "./utils/utils";
+var scrollIntoView = require("scroll-into-view");
 
 export default function ContentContainer() {
   const { t, i18n } = useTranslation();
@@ -23,14 +24,10 @@ export default function ContentContainer() {
   const [geocoder, setGeocoder] = useState(null);
   const [service, setService] = useState(null);
 
-  // const { isLoaded } = useJsApiLoader({
-  //   id: "google-map-script",
-  //   language: "en",
-  //   googleMapsApiKey: "AIzaSyCeDbzkBUMghS9nQtS0fVySysUxKNDkYyo",
-  // });
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: "AIzaSyCeDbzkBUMghS9nQtS0fVySysUxKNDkYyo",
+  const { isLoaded, loadError } = useJsApiLoader({
+    id: "google-map-script",
     language: "en",
+    googleMapsApiKey: "AIzaSyCeDbzkBUMghS9nQtS0fVySysUxKNDkYyo",
   });
 
   const [originErrorMessage, setOriginErrorMessage] = useState(false);
@@ -53,8 +50,8 @@ export default function ContentContainer() {
   }, []);
 
   async function getTripData(originName, destinationName) {
-    //if departure time has been changed by the user it will be returned in string formatted
-    //in that case make a new date object with departure time and make sure departure time is not in the past
+    //if departure time has been changed by the user it will be returned in string format
+    //if so, create a new date object with departure time and make sure departure time is not in the past
     //else create a new date object and use that as departure time
     var departureDate = new Date();
     if (departureTime && typeof departureTime === "string") {
@@ -68,6 +65,8 @@ export default function ContentContainer() {
       }
     }
 
+    //create a distanceMatrix service request using origin name, destination name and departure time
+
     const request = {
       origins: [originName],
       destinations: [destinationName],
@@ -79,6 +78,9 @@ export default function ContentContainer() {
       avoidHighways: false,
       avoidTolls: false,
     };
+
+    //call distance matrix service
+
     var response;
     try {
       response = await service.getDistanceMatrix(request);
@@ -92,9 +94,9 @@ export default function ContentContainer() {
     var durationInSeconds;
     if (status === "OK") {
       distanceInMeters = response.rows[0].elements[0].distance.value;
-      console.log("distance:", response.rows[0].elements[0].distance.text);
+      console.log("distance text:", response.rows[0].elements[0].distance.text);
       durationInSeconds = response.rows[0].elements[0].duration.value;
-      console.log("duration:", response.rows[0].elements[0].duration.text);
+      console.log("duration text:", response.rows[0].elements[0].duration.text);
     }
 
     return {
@@ -105,6 +107,9 @@ export default function ContentContainer() {
       destinationFormattedName,
     };
   }
+
+  //geocode location converts location formatted names into coords
+
   async function geocodeLocations(
     originFormattedName,
     destinationFormattedName
@@ -119,6 +124,9 @@ export default function ContentContainer() {
     const _destinationCoords = destinationValues.results[0].geometry.location;
     return { _originCoords, _destinationCoords };
   }
+
+  //fill in the fields that make up the trip info banner
+  //show the trip info banner
 
   function makeTripInfo(
     originFormattedName,
@@ -150,51 +158,61 @@ export default function ContentContainer() {
   }
 
   const handleSubmit = async e => {
+    setRouteNotFoundError(false);
+    setOriginErrorMessage(false);
+    setDestinationErrorMessage(false);
     e.preventDefault();
 
-    //get trip duration, distance, origin and destination formatted names
-
-    const {
-      status,
-      distanceInMeters,
-      durationInSeconds,
-      originFormattedName,
-      destinationFormattedName,
-    } = await getTripData(originName, destinationName);
-
-    if (status === "OK") {
-      makeTripInfo(
+    //get trip duration, distance, origin and destination formatted names using distance matrix service
+    try {
+      const {
+        status,
+        distanceInMeters,
+        durationInSeconds,
         originFormattedName,
         destinationFormattedName,
-        distanceInMeters,
-        durationInSeconds
-      );
-    } else if (status === "ZERO_RESULTS") {
-      setRouteNotFoundError(true);
-      setShowTripInfo(false);
-      setOriginErrorMessage(false);
-      setDestinationErrorMessage(false);
+      } = await getTripData(originName, destinationName);
 
-      setDestinationName(destinationFormattedName);
-      setOriginName(originFormattedName);
-    } else {
-      setRouteNotFoundError(false);
-      setShowTripInfo(false);
-      if (destinationFormattedName)
+      if (status === "OK") {
+        //if distance matrix service does not return any error, fill in
+        //the fields making up the trip info banner and show the trip info banner
+        makeTripInfo(
+          originFormattedName,
+          destinationFormattedName,
+          distanceInMeters,
+          durationInSeconds
+        );
+      } else if (status === "ZERO_RESULTS") {
+        //zero results means no route connecting origin and destination was found
+        //show error message accordingly
+
+        setRouteNotFoundError(true);
+        setShowTripInfo(false);
+        setOriginErrorMessage(false);
+        setDestinationErrorMessage(false);
+
         setDestinationName(destinationFormattedName);
-      else setDestinationErrorMessage(true);
-      if (originFormattedName) setOriginName(originFormattedName);
-      else setOriginErrorMessage(true);
-    }
+        setOriginName(originFormattedName);
+      } else {
+        //if execution reaches this point it means origin or destination were not found
+        //show error message accordingly
+        setRouteNotFoundError(false);
+        setShowTripInfo(false);
+        if (destinationFormattedName)
+          setDestinationName(destinationFormattedName);
+        else setDestinationErrorMessage(true);
+        if (originFormattedName) setOriginName(originFormattedName);
+        else setOriginErrorMessage(true);
+      }
 
-    //get origin and destination coords from their name (aka geocode)
-    try {
+      //get origin and destination coords from their name using geocode service.
+
       const { _originCoords, _destinationCoords } = await geocodeLocations(
         originFormattedName,
         destinationFormattedName
       );
 
-      //set origin and destination coords in state and pass them to markers as this.props
+      //set origin and destination coords in state and pass them to markers as props
 
       setOriginCoords(_originCoords);
       setDestinationCoords(_destinationCoords);
@@ -209,6 +227,8 @@ export default function ContentContainer() {
       //adjust zoom to show both markers
 
       map.setZoom(map.getZoom() - 1);
+      console.log(document.getElementById("target"));
+      scrollIntoView(document.querySelector("#target"));
     } catch (error) {
       console.log(error);
     }
@@ -249,11 +269,16 @@ export default function ContentContainer() {
   };
   return (
     <section className="fdb-block py-0 mt-4">
+      {loadError && (
+        <p class="text-danger text-text-center">
+          Error loading google maps api. Try refreshing the page.
+        </p>
+      )}
       <div
         className="container"
         style={{ backgroundImage: "url(imgs/shapes/6.svg)" }}>
         <div className="row">
-          <Forms04
+          <Form
             handleSubmit={handleSubmit}
             originValue={originName}
             destinationValue={destinationName}
@@ -280,6 +305,7 @@ export default function ContentContainer() {
               onDestinationDragEnd={onDestinationDragEnd}>
               {showTripInfo && (
                 <TripInfo
+                  id="#tripInfo"
                   tripPrice={tripPrice}
                   tripDistance={tripDistance}
                   tripDuration={tripDuration}
@@ -287,6 +313,7 @@ export default function ContentContainer() {
               )}
             </Gmap>
           )}
+          <div id="target"></div>
         </div>
       </div>
     </section>

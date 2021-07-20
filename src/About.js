@@ -34,7 +34,7 @@ export default function About() {
         <br />
         <br />
 
-        <p>So for example a 20km trip that lasts 2 hours would be: </p>
+        <p>A 20km trip that lasts 2 hours would be: </p>
         <code>
           (7EGP for the initial fare + first kilometer) + (19*3EGP for the
           following 19 kilometers) + (17EGP for the first hour) + (8EGP for the

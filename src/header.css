@@ -22,4 +22,18 @@ nav .logo {
 
 .language-switch {
   color: #f17272;
+  font-size: 0.8rem;
+  line-height: 2;
+}
+
+.form-switch .form-check-input:checked,
+.form-switch .form-check-input,
+.form-switch .form-check-input:focus {
+  background-color: rgb(209, 65, 65);
+  border-color: #ffffff;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23000'/%3e%3c/svg%3e");
+}
+
+.navbar-toggler {
+  background-color: rgb(209, 65, 65);
 }

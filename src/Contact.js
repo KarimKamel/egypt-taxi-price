@@ -8,7 +8,7 @@ export default function Contact() {
         Feel free to drop us a line if you have any comments or suggestions
         regarding the app.
       </p>
-      <form action="https://formspree.io/f/mleoqwog" method="POST">
+      <form action={url} method="POST">
         <div class="mb-3">
           <label for="exampleFormControlInput1" class="form-label">
             Email address
@@ -23,7 +23,7 @@ export default function Contact() {
         </div>
         <div class="mb-3">
           <label for="exampleFormControlTextarea1" class="form-label">
-            Example textarea
+            Your message:
           </label>
           <textarea
             name="message"

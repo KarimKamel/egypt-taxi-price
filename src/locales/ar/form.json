@@ -7,6 +7,12 @@
     "destination":"النهاية",
     "departure time":"معاد بداية الرحلة(حقل غير اجباري)",
     "asterisk message":"*يستخدم للحصول علي كمية الازدحام و مدة الرحلة",
-    "submit":"ارسل"
+    "submit":"ارسل",
+    "searchErrorMessage" :
+    "لم يتم العثور علي المكان المحدد", 
+   "routeErrorMessage" :
+    "لم يتم العثور علي طريق يوصل ما بين الاماكن المحددة", 
+   "departureTimeErrorMessage" :
+    "معاد بداية الرحلة في الماضي" 
 
 }

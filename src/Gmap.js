@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import { GoogleMap, Marker } from "@react-google-maps/api";
 
@@ -14,17 +14,14 @@ export default function Gmap(props) {
     onUnmount,
     originPosition,
     destinationPosition,
-    distanceMatrixRequest,
+
     onOriginDragEnd,
     onDestinationDragEnd,
   } = props;
 
-  useEffect(() => {
-    console.log(distanceMatrixRequest);
-  }, [distanceMatrixRequest]);
   return (
     <div className="col-12 col-md-8 col-lg-6 col-xl-6 text-left">
-      <div className="row p-5">
+      <div className="row p-lg-5 my-md-5 my-lg-0">
         <div className="col">
           <GoogleMap
             mapContainerStyle={containerStyle}

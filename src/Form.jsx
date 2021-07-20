@@ -3,13 +3,7 @@ import TimePicker from "react-time-picker";
 
 const submitButtonStyle = { backgroundColor: "rgb(160 16 16)" };
 
-export default function Forms04(props) {
-  const searchErrorMessage =
-    "Could not find location; try another search term.";
-  const routeErrorMessage =
-    "Could not find a path connecting origin and destination";
-  const departureTimeErrorMessage =
-    "Error in specified time. Departure time cannot be in the past";
+export default function Form(props) {
   const {
     setDestinationName,
     setDepartureTime,
@@ -42,10 +36,8 @@ export default function Forms04(props) {
           </div>
         </div>
         <div className="row">
-          <div className="col mt-4">
-            <label style={getAlignment()} htmlFor="originInput">
-              {t("form:from")}
-            </label>
+          <div className="col mt-4" style={getAlignment()}>
+            <label htmlFor="originInput">{t("form:from")}</label>
             <input
               style={getAlignment()}
               id="originInput"
@@ -55,12 +47,15 @@ export default function Forms04(props) {
               value={originValue}
               placeholder={t("form:origin")}
             />
+
             {originError && (
-              <p style={{ color: "red" }}>{searchErrorMessage}</p>
+              <p style={{ color: "red", ...getAlignment() }}>
+                {t("form:searchErrorMessage")}
+              </p>
             )}
           </div>
         </div>
-        <div className="row mt-4">
+        <div className="row mt-4 " style={getAlignment()}>
           <div className="col">
             <label style={getAlignment()} htmlFor="destinationInput">
               {t("form:to")}
@@ -75,7 +70,9 @@ export default function Forms04(props) {
               placeholder={t("form:destination")}
             />
             {destinationError && (
-              <p style={{ color: "red" }}>{searchErrorMessage}</p>
+              <p style={{ color: "red", ...getAlignment() }}>
+                {t("form:searchErrorMessage")}
+              </p>
             )}
           </div>
         </div>
@@ -96,7 +93,9 @@ export default function Forms04(props) {
             />
 
             {departureTimeError && (
-              <p style={{ color: "red" }}>{departureTimeErrorMessage}</p>
+              <p style={{ color: "red", ...getAlignment() }}>
+                {t("form:departureTimeErrorMessage")}
+              </p>
             )}
           </div>
         </div>
@@ -110,7 +109,7 @@ export default function Forms04(props) {
             </button>
 
             {routeNotFoundError && (
-              <p style={{ color: "red" }}>{routeErrorMessage}</p>
+              <p style={{ color: "red" }}>{t("form:routeErrorMessage")}</p>
             )}
           </div>
         </div>

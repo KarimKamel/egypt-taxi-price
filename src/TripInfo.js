@@ -2,12 +2,12 @@ import React from "react";
 import "./TripInfo.css";
 
 export default function TripInfo(props) {
-  const { tripDuration, tripDistance, tripPrice } = props;
+  const { tripDuration, tripDistance, tripPrice, id } = props;
   return (
-    <div class="col-12 d-flex justify-content-center">
+    <div class="col-12 d-flex ">
       {tripDistance !== 0 && (
-        <div className="trip-info-container">
-          <h3 className="mt-3">
+        <div id={id} className="trip-info-container mx-lg-5 my-md-3 ">
+          <h3 className="mt-3 ">
             Trip Duration:{" "}
             <span>
               {" "}
