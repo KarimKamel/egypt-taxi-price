@@ -5,6 +5,7 @@ import Contact from "./Contact";
 import Header from "./Header";
 import ContentContainer from "./ContentContainer";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+require("dotenv").config();
 
 function App() {
   return (

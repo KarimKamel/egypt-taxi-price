@@ -27,7 +27,7 @@ export default function ContentContainer() {
   const { isLoaded, loadError } = useJsApiLoader({
     id: "google-map-script",
     language: "en",
-    googleMapsApiKey: "AIzaSyCeDbzkBUMghS9nQtS0fVySysUxKNDkYyo",
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY,
   });
 
   const [originErrorMessage, setOriginErrorMessage] = useState(false);
@@ -274,6 +274,7 @@ export default function ContentContainer() {
           Error loading google maps api. Try refreshing the page.
         </p>
       )}
+
       <div
         className="container"
         style={{ backgroundImage: "url(imgs/shapes/6.svg)" }}>
