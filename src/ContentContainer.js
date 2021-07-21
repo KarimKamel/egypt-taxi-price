@@ -1,5 +1,5 @@
 import { useJsApiLoader } from "@react-google-maps/api";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Form from "./Form";
 import Gmap from "./Gmap";
 import TripInfo from "./TripInfo";
@@ -37,8 +37,6 @@ export default function ContentContainer() {
 
   const [map, setMap] = React.useState(null);
   const onLoad = React.useCallback(function callback(map) {
-    console.log(map);
-
     setMap(map);
     var geocoder = new window.google.maps.Geocoder();
     var service = new window.google.maps.DistanceMatrixService();

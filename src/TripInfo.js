@@ -6,7 +6,7 @@ export default function TripInfo(props) {
   return (
     <div class="col-12 d-flex ">
       {tripDistance !== 0 && (
-        <div id={id} className="trip-info-container mx-lg-5 my-md-3 ">
+        <div id={id} className="trip-info-container w-100 text-center my-md-3 ">
           <h3 className="mt-3 ">
             Trip Duration:{" "}
             <span>
