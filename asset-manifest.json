@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/egypt-taxi-price/static/css/main.46078fda.chunk.css",
-    "main.js": "/egypt-taxi-price/static/js/main.e259fdb7.chunk.js",
-    "main.js.map": "/egypt-taxi-price/static/js/main.e259fdb7.chunk.js.map",
+    "main.css": "/egypt-taxi-price/static/css/main.de5d9d83.chunk.css",
+    "main.js": "/egypt-taxi-price/static/js/main.fdfb5f1f.chunk.js",
+    "main.js.map": "/egypt-taxi-price/static/js/main.fdfb5f1f.chunk.js.map",
     "runtime-main.js": "/egypt-taxi-price/static/js/runtime-main.58ffc286.js",
     "runtime-main.js.map": "/egypt-taxi-price/static/js/runtime-main.58ffc286.js.map",
     "static/css/2.33d33083.chunk.css": "/egypt-taxi-price/static/css/2.33d33083.chunk.css",
@@ -12,14 +12,14 @@
     "static/js/3.e8319b44.chunk.js.map": "/egypt-taxi-price/static/js/3.e8319b44.chunk.js.map",
     "index.html": "/egypt-taxi-price/index.html",
     "static/css/2.33d33083.chunk.css.map": "/egypt-taxi-price/static/css/2.33d33083.chunk.css.map",
-    "static/css/main.46078fda.chunk.css.map": "/egypt-taxi-price/static/css/main.46078fda.chunk.css.map",
+    "static/css/main.de5d9d83.chunk.css.map": "/egypt-taxi-price/static/css/main.de5d9d83.chunk.css.map",
     "static/js/2.65b67b5d.chunk.js.LICENSE.txt": "/egypt-taxi-price/static/js/2.65b67b5d.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.58ffc286.js",
     "static/css/2.33d33083.chunk.css",
     "static/js/2.65b67b5d.chunk.js",
-    "static/css/main.46078fda.chunk.css",
-    "static/js/main.e259fdb7.chunk.js"
+    "static/css/main.de5d9d83.chunk.css",
+    "static/js/main.fdfb5f1f.chunk.js"
   ]
 }
