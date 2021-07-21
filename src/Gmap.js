@@ -19,14 +19,8 @@ export default function Gmap(props) {
   } = props;
 
   return (
-<<<<<<< HEAD
-    <div className="col-12 col-md-8 col-lg-6 col-xl-6 text-left">
-      <div className="row p-lg-4 my-3 my-lg-0">
-        {/* <div className="row p-lg-5 my-5 my-lg-0"> */}
-=======
     <div className="col-12 col-md-8 col-lg-6 col-xl-6 text-left px-lg-4">
       <div className="row  my-md-3 my-lg-3">
->>>>>>> cssfix
         <div className="col">
           <GoogleMap
             mapContainerStyle={containerStyle}
