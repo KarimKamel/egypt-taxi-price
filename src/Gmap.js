@@ -3,7 +3,6 @@ import React from "react";
 import { GoogleMap, Marker } from "@react-google-maps/api";
 
 const containerStyle = {
-  width: "400px",
   height: "400px",
 };
 
@@ -21,7 +20,8 @@ export default function Gmap(props) {
 
   return (
     <div className="col-12 col-md-8 col-lg-6 col-xl-6 text-left">
-      <div className="row p-lg-5 my-md-5 my-lg-0">
+      <div className="row p-lg-4 my-3 my-lg-0">
+        {/* <div className="row p-lg-5 my-5 my-lg-0"> */}
         <div className="col">
           <GoogleMap
             mapContainerStyle={containerStyle}

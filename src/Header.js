@@ -78,46 +78,43 @@ export default function Header() {
 
           <ul className="navbar-nav col  d-none d-md-flex ">
             <li className="nav-item">
-              <a className="nav-link" href="https://www.froala.com">
+              <a
+                className="nav-link"
+                href="https://www.facebook.com/karim.kamel.568">
                 <i className="fab fa-facebook"></i>
               </a>
             </li>
+
             <li className="nav-item">
-              <a className="nav-link" href="https://www.froala.com">
-                <i className="fab fa-twitter"></i>
-              </a>
-            </li>
-            <li className="nav-item">
-              <a className="nav-link" href="https://www.froala.com">
+              <a className="nav-link" href="https://github.com/KarimKamel">
                 <i className="fab fa-github"></i>
               </a>
             </li>
-            <li className="nav-item">
-              <a className="nav-link" href="https://www.froala.com">
-                <i className="fab fa-google"></i>
-              </a>
-            </li>
           </ul>
-
-          <div class="custom-control custom-switch d-flex flex-row col">
-            <div class="form-check form-switch language-switch">
-              <label
-                class="form-check-label"
-                for="flexSwitchCheckDefault"
-                style={{ marginRight: "3rem" }}>
-                EN
-              </label>
-              <input
-                class="form-check-input"
-                type="checkbox"
-                id="flexSwitchCheckDefault"
-                onChange={onLanguageChange}
-              />
-              <label class="form-check-label" htmlFor="flexSwitchCheckDefault">
-                AR
-              </label>
+          {location.pathname === "/" && (
+            <div class="custom-control custom-switch d-flex flex-row col flex-nowrap">
+              <div class="form-check form-switch language-switch">
+                <label
+                  class="form-check-label"
+                  for="flexSwitchCheckDefault"
+                  style={{ marginRight: "3rem" }}>
+                  EN
+                </label>
+                <input
+                  class="form-check-input"
+                  type="checkbox"
+                  id="flexSwitchCheckDefault"
+                  onChange={onLanguageChange}
+                />
+                <label
+                  class="form-check-label"
+                  htmlFor="flexSwitchCheckDefault">
+                  AR
+                </label>
+              </div>
             </div>
-          </div>
+          )}
+
           <button
             className="navbar-toggler"
             type="button"
