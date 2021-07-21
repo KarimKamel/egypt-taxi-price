@@ -33,6 +33,16 @@ export default function Header() {
           <div className="col text-left">
             <h3 className="logo">Egypt Taxi Price</h3>
           </div>
+          <button
+            className="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarNav4"
+            aria-controls="navbarNav4"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
 
           <div
             className="collapse navbar-collapse justify-content-center col "
@@ -91,6 +101,7 @@ export default function Header() {
               </a>
             </li>
           </ul>
+<<<<<<< HEAD
           {location.pathname === "/" && (
             <div class="custom-control custom-switch d-flex flex-row col flex-nowrap">
               <div class="form-check form-switch language-switch">
@@ -125,6 +136,29 @@ export default function Header() {
             aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
           </button>
+=======
+
+          <div class="custom-control custom-switch d-flex flex-row ">
+            <label
+              class="form-check-label d-block mx-2"
+              for="flexSwitchCheckDefault">
+              En
+            </label>
+            <div class="form-check form-switch language-switch p-0 mt-1">
+              <input
+                class="form-check-input m-0 p-0"
+                type="checkbox"
+                id="flexSwitchCheckDefault"
+                onChange={onLanguageChange}
+              />
+            </div>
+            <label
+              class="form-check-label d-block mx-2"
+              htmlFor="flexSwitchCheckDefault">
+              Ar
+            </label>
+          </div>
+>>>>>>> cssfix
         </nav>
       </div>
     </header>
