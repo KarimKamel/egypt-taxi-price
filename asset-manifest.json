@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/egypt-taxi-price/static/css/main.de5d9d83.chunk.css",
-    "main.js": "/egypt-taxi-price/static/js/main.fdfb5f1f.chunk.js",
-    "main.js.map": "/egypt-taxi-price/static/js/main.fdfb5f1f.chunk.js.map",
+    "main.js": "/egypt-taxi-price/static/js/main.b2089353.chunk.js",
+    "main.js.map": "/egypt-taxi-price/static/js/main.b2089353.chunk.js.map",
     "runtime-main.js": "/egypt-taxi-price/static/js/runtime-main.58ffc286.js",
     "runtime-main.js.map": "/egypt-taxi-price/static/js/runtime-main.58ffc286.js.map",
     "static/css/2.33d33083.chunk.css": "/egypt-taxi-price/static/css/2.33d33083.chunk.css",
@@ -20,6 +20,6 @@
     "static/css/2.33d33083.chunk.css",
     "static/js/2.65b67b5d.chunk.js",
     "static/css/main.de5d9d83.chunk.css",
-    "static/js/main.fdfb5f1f.chunk.js"
+    "static/js/main.b2089353.chunk.js"
   ]
 }
