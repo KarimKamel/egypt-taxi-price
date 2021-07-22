@@ -273,9 +273,7 @@ export default function ContentContainer() {
         </p>
       )}
 
-      <div
-        className="container"
-        style={{ backgroundImage: "url(imgs/shapes/6.svg)" }}>
+      <div className="container">
         <div className="row">
           <Form
             handleSubmit={handleSubmit}
